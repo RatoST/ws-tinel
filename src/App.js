@@ -8,6 +8,7 @@ import {
 import Card from './components/Card';
 import Cart from './components/Cart';
 import wsData from './utility/wsData';
+import Sidebar from './components/Sidebar';
 
 function App() {
   const [checkDetails, setCheckDetails] = useState(false);
@@ -34,6 +35,10 @@ function App() {
         </div>
       </Router>
     </div>
+    <Sidebar 
+      width={300}
+      children={"Test"}
+    />
     <div>
       <h1>Workshops</h1>
       <dl>
