@@ -9,6 +9,7 @@ import Card from './components/Card';
 import Cart from './components/Cart';
 import wsData from './utility/wsData';
 import Sidebar from './components/Sidebar';
+import './App.css';
 
 function App() {
   const [checkDetails, setCheckDetails] = useState(false);
@@ -43,7 +44,8 @@ function App() {
       <h1>Workshops</h1>
       <dl>
         {wsData.map(dataWs => (
-          <Card
+          <Card 
+            className="cardGrid"
             key={dataWs.id}
             image={dataWs.image}
             catIcon={dataWs.catIcon}

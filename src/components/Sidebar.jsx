@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import './Sidebar.css';
 
-
 const Sidebar = ({ width, height, children }) => {
   const [xPosition, setX] = useState(-width);
 
