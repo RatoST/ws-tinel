@@ -8,6 +8,7 @@ import {
    useParams 
 } from 'react-router-dom';
 import shops from './utility/shops';
+import './App.css';
 
 const App = () => {
   return(
@@ -33,11 +34,14 @@ const App = () => {
 
 const Home = () => {
 
+  const formatPrice = (price) => {
+    return `${(price).toFixed(2)} EUR`
+  }
 
 
   return (
-    <div>
-      <div>
+    <div className="row">
+      <div className="column left">
         <h6>Filter by category:</h6>
         {/* <button onClick={filteredDesign}>Design</button> */}
          <h3><Link to="/">All</Link></h3>
@@ -46,21 +50,24 @@ const Home = () => {
         <h3><Link to="/marketing">Marketing</Link></h3>
         <h3><Link to="/backend">Backend</Link></h3> */}
       </div>
-      <div>
+      <div className="column right">
         <h1>Workshops</h1>
-          <ul>
-            {Object.entries(shops).map(([slug, {image, title, time}]) => (
-              <li key={slug}>
+          <div className="dictionary">
+            {Object.entries(shops).map(([slug, {image, catIcon, title, time, price}]) => (
+                <div className="term" key={slug}>
                 <Link to={`/workshops/${slug}`}>
                   <img src={image} alt={title} width={200}/>
                 </Link>
+                <span><img src={catIcon} alt="icon" width={20}/></span>
                 <h4>{time}</h4>
                 <Link to={`/workshops/${slug}`}> 
                   <h2>{title}</h2>
-                </Link>          
-              </li>
+                </Link>   
+                <h4>{formatPrice(price)}</h4>
+                <button>Add to Cart</button>       
+              </div>
             ))}
-          </ul>
+          </div>
       </div>
     </div>
   );
