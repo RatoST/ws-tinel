@@ -7,8 +7,11 @@ import {
    Outlet, 
    useParams 
 } from 'react-router-dom';
+import Button from 'react-bootstrap/Button'
 import shops from './utility/shops';
 import './App.css';
+import clock from './images/eva_clock.png';
+import calendar from './images/calendar.png';
 
 const App = () => {
   return(
@@ -53,18 +56,19 @@ const Home = () => {
       <div className="column right">
         <h1>Workshops</h1>
           <div className="dictionary">
-            {Object.entries(shops).map(([slug, {image, catIcon, title, time, price}]) => (
+            {Object.entries(shops).map(([slug, {image, catIcon, title,date, time, price}]) => (
                 <div className="term" key={slug}>
                 <Link to={`/workshops/${slug}`}>
                   <img src={image} alt={title} width={200}/>
                 </Link>
                 <span><img src={catIcon} alt="icon" width={20}/></span>
-                <h4>{time}</h4>
+                <h4><span><img src={calendar} alt="cal" width={15}/> {date} </span>
+                <span><img src={clock} alt="clo" width={15}/> {time} </span></h4>
                 <Link to={`/workshops/${slug}`}> 
                   <h2>{title}</h2>
                 </Link>   
                 <h4>{formatPrice(price)}</h4>
-                <button>Add to Cart</button>       
+                <Button variant='warning'>Add to Cart</Button>     
               </div>
             ))}
           </div>
