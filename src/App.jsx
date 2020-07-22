@@ -20,6 +20,10 @@ const App = () => {
             <Route path="workshops" element={<Launch />}>
               <Route path=":slug" element={<LaunchShop/>}/>
             </Route>
+             <Route path="design" element={<Design />}/>
+            {/*<Route path="frontend" element={<Frontend/>}/>
+            <Route path="marketing" element={<Marketing/>}/>
+            <Route path="backend" element={<Backend/>}/> */}
             <Route path="*" element={<NotFound/>}/>
         </Routes>
     </Router>
@@ -28,15 +32,19 @@ const App = () => {
 }
 
 const Home = () => {
+
+
+
   return (
     <div>
       <div>
         <h6>Filter by category:</h6>
-        <h3><Link to="/">All</Link></h3>
-        <h3><Link to="">Design</Link></h3>
-        <h3><Link to="">Frontend</Link></h3>
-        <h3><Link to="">Marketing</Link></h3>
-        <h3><Link to="">Backend</Link></h3>
+        {/* <button onClick={filteredDesign}>Design</button> */}
+         <h3><Link to="/">All</Link></h3>
+        <h3><Link to="/design">Design</Link></h3>
+        {/*<h3><Link to="/frontend">Frontend</Link></h3>
+        <h3><Link to="/marketing">Marketing</Link></h3>
+        <h3><Link to="/backend">Backend</Link></h3> */}
       </div>
       <div>
         <h1>Workshops</h1>
@@ -94,6 +102,41 @@ const LaunchShop = () => {
       </div>
     </div>
   )
+}
+
+const Design = () => {
+
+  const filteredDesign = Object.entries.shops.filter((shop) => 
+  (shop.theme.includes("design")))
+
+  return (
+    <div>
+      <div>
+        <h6>Filter by category:</h6>
+        <h3><Link to="/">All</Link></h3>
+        <h3><Link to="/design">Design</Link></h3>
+        {/* <h3><Link to="/frontend">Frontend</Link></h3>
+        <h3><Link to="/marketing">Marketing</Link></h3>
+        <h3><Link to="/backend">Backend</Link></h3> */}
+      </div>
+      <div>
+        <h1>Workshops</h1>
+          <ul>
+            {Object.entries(filteredDesign).map(([slug, {image, title, time}]) => (
+              <li key={slug}>
+                <Link to={`/workshops/${slug}`}>
+                  <img src={image} alt={title} width={200}/>
+                </Link>
+                <h4>{time}</h4>
+                <Link to={`/workshops/${slug}`}> 
+                  <h2>{title}</h2>
+                </Link>          
+              </li>
+            ))}
+          </ul>
+      </div>
+    </div>
+  );
 }
 
 const NotFound = () => {
