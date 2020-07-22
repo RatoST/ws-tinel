@@ -10,14 +10,15 @@ import {
 import Button from 'react-bootstrap/Button'
 import shops from './utility/shops';
 import './App.css';
+import logo from './images/logo.svg'
 import clock from './images/eva_clock.png';
 import calendar from './images/calendar.png';
 
 const App = () => {
   return(
     <Router>
-      <nav>
-        <Link to="/">Home</Link>    
+      <nav className="navBar">
+        <Link to="/"><img className="logoImg" src={logo} alt="logo"/></Link>    
       </nav>
         <Routes>
           <Route path="/" element={<Home/>}/>
@@ -45,29 +46,29 @@ const Home = () => {
   return (
     <div className="row">
       <div className="column left">
-        <h6>Filter by category:</h6>
+        <h6 className="filterText">Filter by category:</h6>
         {/* <button onClick={filteredDesign}>Design</button> */}
-         <h3><Link to="/">All</Link></h3>
-        <h3><Link to="/design">Design</Link></h3>
-        {/*<h3><Link to="/frontend">Frontend</Link></h3>
-        <h3><Link to="/marketing">Marketing</Link></h3>
-        <h3><Link to="/backend">Backend</Link></h3> */}
+         <h5><Link to="/">All</Link></h5>
+        <h5><Link to="/design">Design</Link></h5>
+        {/*<h5><Link to="/frontend">Frontend</Link></h5>
+        <h5><Link to="/marketing">Marketing</Link></h5>
+        <h5><Link to="/backend">Backend</Link></h5> */}
       </div>
       <div className="column right">
-        <h1>Workshops</h1>
+        <h2 className="listTitle">Workshops</h2>
           <div className="dictionary">
             {Object.entries(shops).map(([slug, {image, catIcon, title,date, time, price}]) => (
                 <div className="term" key={slug}>
                 <Link to={`/workshops/${slug}`}>
-                  <img src={image} alt={title} width={200}/>
+                  <img className="bckImg" src={image} alt={title}/>
                 </Link>
                 <span><img src={catIcon} alt="icon" width={20}/></span>
-                <h4><span><img src={calendar} alt="cal" width={15}/> {date} </span>
-                <span><img src={clock} alt="clo" width={15}/> {time} </span></h4>
+                <h6 className="dateText"><span><img src={calendar} alt="cal" width={15}/> {date} </span>
+                <span><img src={clock} alt="clo" width={15}/> {time} </span></h6>
                 <Link to={`/workshops/${slug}`}> 
-                  <h2>{title}</h2>
+                  <h4 className="cardTitle">{title}</h4>
                 </Link>   
-                <h4>{formatPrice(price)}</h4>
+                <h3 className="price">{formatPrice(price)}</h3>
                 <Button variant='warning'>Add to Cart</Button>     
               </div>
             ))}

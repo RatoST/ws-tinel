@@ -1,5 +1,54 @@
+a, a:hover {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+}
 body {
+  font-family: 'Livvic', sans-serif;
   text-align: center;
+}
+
+h3 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 29px;
+  line-height: 125%;
+}
+
+h4 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 27px;
+  line-height: 125%;
+}
+
+h5 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 23px;
+  line-height: 125%;
+  color: #1D1D1B;
+
+}
+
+h6 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 125%;
+}
+
+/* Nav */
+
+nav {
+  background-color:#FFCE25;
+  height: 10%;
+  position: -webkit-sticky;
+  position: sticky;
+  text-align: left;
+}
+
+.logoImg {
+  padding: 1%;
 }
 
 /*Main Column*/
@@ -7,14 +56,44 @@ body {
   float: left;
 }
 
+.listTitle {
+  color: #1D1D1B;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 125%;
+  text-align: left;
+}
+
+.filterText {
+  color: #7F7F7F;
+}
+
 .left {
-  width: 20%;
+  padding-left: 3%;
+  text-align: left;
+  width: 15%;
 }
 
 .right {
+  text-align: left;
   width: 80%;
 }
 /* Card */
+
+.bckImg {
+  overflow: visible;
+  max-width: 20rem;
+  z-index: -1;
+}
+
+.cardTitle {
+  color: #0097CC;
+}
+
+.dateText {
+  color: #1D1D1B;
+}
 
 .dictionary {
   display: flex;
@@ -25,7 +104,7 @@ body {
 }
 
 .dictionary > .term {
-  text-align: center;
+  text-align: left;
   max-width: 20rem;
   margin-bottom: 3rem;
   padding: 2rem;
@@ -37,6 +116,14 @@ body {
 
 .dictionary > .term > dt {
   margin-bottom: 1rem;
+}
+
+.price {
+  color: #1D1D1B;
+}
+
+.term {
+  overflow: visible;
 }
 
 /* Clear floats after the columns */
