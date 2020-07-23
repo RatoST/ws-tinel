@@ -58,6 +58,28 @@ nav {
   padding: 1%;
 }
 
+/* Filters */
+
+.allClass {
+  margin-left: 25px;
+}
+
+.allClass:hover {
+  cursor: pointer;
+}
+
+.filterClass {
+  margin-left: 5px;
+}
+
+.filterClass:hover {
+  cursor: pointer;
+}
+
+.filterImg {
+  padding-right: 2px;
+}
+
 /*Main Column*/
 .column {
   float: left;
@@ -67,6 +89,7 @@ nav {
 .filterText {
   color: #7F7F7F;
   margin-top: 30%;
+  margin-left: 25px;
   margin-bottom: 10%;
 }
 
@@ -83,7 +106,8 @@ nav {
   font-weight: bold;
   font-size: 40px;
   line-height: 125%;
-  text-align: left;
+  margin-left: 10%;
+  margin-top: 2%;
 }
 
 .right {
@@ -113,8 +137,8 @@ nav {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  margin: 4rem auto;
-  max-width: 70%;
+  margin: 1rem auto;
+  max-width: 90%;
 }
 
 .dictionary > .term {
@@ -252,4 +276,10 @@ nav {
   line-height: 150%;
   max-width: 80%;
   margin-top: 5%;
+}
+
+/* Details similar ws */
+
+.similar {
+  text-align: right;
 }
