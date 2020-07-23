@@ -24,12 +24,12 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home/>}/>
             <Route path="workshops" element={<Launch />}>
-              <Route path=":slug" element={<LaunchShop/>}/>
+              <Route path=":id" element={<LaunchShop/>}/>
             </Route>
              <Route path="design" element={<Design />}/>
-            {/*<Route path="frontend" element={<Frontend/>}/>
-            <Route path="marketing" element={<Marketing/>}/>
-            <Route path="backend" element={<Backend/>}/> */}
+            <Route path="frontend" element={<Frontend/>}/>
+            <Route path="backend" element={<Backend/>}/>
+            <Route path="marketing" element={<Marketing/>}/>            
             <Route path="*" element={<NotFound/>}/>
         </Routes>
     </Router>
@@ -48,25 +48,24 @@ const Home = () => {
     <div className="row">
       <div className="column left">
         <h6 className="filterText">Filter by category:</h6>
-        {/* <button onClick={filteredDesign}>Design</button> */}
          <h5><Link to="/">All</Link></h5>
         <h5><Link to="/design">Design</Link></h5>
-        {/*<h5><Link to="/frontend">Frontend</Link></h5>
+        <h5><Link to="/frontend">Frontend</Link></h5>
+        <h5><Link to="/backend">Backend</Link></h5>
         <h5><Link to="/marketing">Marketing</Link></h5>
-        <h5><Link to="/backend">Backend</Link></h5> */}
       </div>
       <div className="column right">
         <h2 className="listTitle">Workshops</h2>
           <div className="dictionary">
-            {Object.entries(shops).map(([slug, {image, catIcon, title,date, time, price}]) => (
-                <div className="term" key={slug}>
-                <Link to={`/workshops/${slug}`}>
+            {Object.entries(shops).map(([id, {image, catIcon, title,date, time, price}]) => (
+                <div className="term" key={id}>
+                <Link to={`/workshops/${id}`}>
                   <img className="bckImg" src={image} alt={title}/>
                 </Link>
                 <span><img src={catIcon} alt="icon" width={20}/></span>
                 <h6 className="dateText"><span><img src={calendar} alt="cal" width={15}/> {date} </span>
                 <span><img src={clock} alt="clo" width={15}/> {time} </span></h6>
-                <Link to={`/workshops/${slug}`}> 
+                <Link to={`/workshops/${id}`}> 
                   <h4 className="cardTitle">{title}</h4>
                 </Link>   
                 <h3 className="price">{formatPrice(price)}</h3>
@@ -86,10 +85,10 @@ const Launch = () => {
     </div>);
 }
 
-
+// Link for details
 const LaunchShop = () => {
-  const { slug } = useParams();
-  const shop = shops[slug];
+  const { id } = useParams();
+  const shop = shops[id];
 
     if(!shop) {
       return <h2>Not Found!</h2>;
@@ -142,34 +141,171 @@ const LaunchShop = () => {
 
 const Design = () => {
 
-  const filteredDesign = Object.entries.shops.filter((shop) => 
+  const filteredDesign = shops.filter((shop) => 
   (shop.theme.includes("design")))
 
+  const formatPrice = (price) => {
+    return `${(price).toFixed(2)} EUR`
+  }
+
   return (
-    <div>
-      <div>
-        <h6>Filter by category:</h6>
-        <h3><Link to="/">All</Link></h3>
-        <h3><Link to="/design">Design</Link></h3>
-        {/* <h3><Link to="/frontend">Frontend</Link></h3>
-        <h3><Link to="/marketing">Marketing</Link></h3>
-        <h3><Link to="/backend">Backend</Link></h3> */}
+    <div className="row">
+      <div className="column left">
+        <h6 className="filterText">Filter by category:</h6>
+         <h5><Link to="/">All</Link></h5>
+        <h5><Link to="/design">Design</Link></h5>
+        <h5><Link to="/frontend">Frontend</Link></h5>
+        <h5><Link to="/backend">Backend</Link></h5>
+        <h5><Link to="/marketing">Marketing</Link></h5>        
       </div>
-      <div>
-        <h1>Workshops</h1>
-          <ul>
-            {Object.entries(filteredDesign).map(([slug, {image, title, time}]) => (
-              <li key={slug}>
-                <Link to={`/workshops/${slug}`}>
-                  <img src={image} alt={title} width={200}/>
+      <div className="column right">
+        <h2 className="listTitle">Workshops</h2>
+          <div className="dictionary">
+            {Object.entries(filteredDesign).map(([id, {image, catIcon, title,date, time, price}]) => (
+                <div className="term" key={id}>
+                <Link to={`/workshops/${id}`}>
+                  <img className="bckImg" src={image} alt={title}/>
                 </Link>
-                <h4>{time}</h4>
-                <Link to={`/workshops/${slug}`}> 
-                  <h2>{title}</h2>
-                </Link>          
-              </li>
+                <span><img src={catIcon} alt="icon" width={20}/></span>
+                <h6 className="dateText"><span><img src={calendar} alt="cal" width={15}/> {date} </span>
+                <span><img src={clock} alt="clo" width={15}/> {time} </span></h6>
+                <Link to={`/workshops/${id}`}> 
+                  <h4 className="cardTitle">{title}</h4>
+                </Link>   
+                <h3 className="price">{formatPrice(price)}</h3>
+                <Button variant='warning'>Add to Cart</Button>     
+              </div>
             ))}
-          </ul>
+          </div>
+      </div>
+    </div>
+  );
+}
+
+const Frontend = () => {
+
+  const filteredDesign = shops.filter((shop) => 
+  (shop.theme.includes("fed")))
+
+  const formatPrice = (price) => {
+    return `${(price).toFixed(2)} EUR`
+  }
+
+  return (
+    <div className="row">
+      <div className="column left">
+        <h6 className="filterText">Filter by category:</h6>
+         <h5><Link to="/">All</Link></h5>
+        <h5><Link to="/design">Design</Link></h5>
+        <h5><Link to="/frontend">Frontend</Link></h5>
+        <h5><Link to="/backend">Backend</Link></h5>
+        <h5><Link to="/marketing">Marketing</Link></h5>
+      </div>
+      <div className="column right">
+        <h2 className="listTitle">Workshops</h2>
+          <div className="dictionary">
+            {Object.entries(filteredDesign).map(([id, {image, catIcon, title,date, time, price}]) => (
+                <div className="term" key={id}>
+                <Link to={`/workshops/${id}`}>
+                  <img className="bckImg" src={image} alt={title}/>
+                </Link>
+                <span><img src={catIcon} alt="icon" width={20}/></span>
+                <h6 className="dateText"><span><img src={calendar} alt="cal" width={15}/> {date} </span>
+                <span><img src={clock} alt="clo" width={15}/> {time} </span></h6>
+                <Link to={`/workshops/${id}`}> 
+                  <h4 className="cardTitle">{title}</h4>
+                </Link>   
+                <h3 className="price">{formatPrice(price)}</h3>
+                <Button variant='warning'>Add to Cart</Button>     
+              </div>
+            ))}
+          </div>
+      </div>
+    </div>
+  );
+}
+
+const Backend = () => {
+
+  const filteredDesign = shops.filter((shop) => 
+  (shop.theme.includes("bed")))
+
+  const formatPrice = (price) => {
+    return `${(price).toFixed(2)} EUR`
+  }
+
+  return (
+    <div className="row">
+      <div className="column left">
+        <h6 className="filterText">Filter by category:</h6>
+         <h5><Link to="/">All</Link></h5>
+        <h5><Link to="/design">Design</Link></h5>
+        <h5><Link to="/frontend">Frontend</Link></h5>
+        <h5><Link to="/backend">Backend</Link></h5>
+        <h5><Link to="/marketing">Marketing</Link></h5>
+      </div>
+      <div className="column right">
+        <h2 className="listTitle">Workshops</h2>
+          <div className="dictionary">
+            {Object.entries(filteredDesign).map(([id, {image, catIcon, title,date, time, price}]) => (
+                <div className="term" key={id}>
+                <Link to={`/workshops/${id}`}>
+                  <img className="bckImg" src={image} alt={title}/>
+                </Link>
+                <span><img src={catIcon} alt="icon" width={20}/></span>
+                <h6 className="dateText"><span><img src={calendar} alt="cal" width={15}/> {date} </span>
+                <span><img src={clock} alt="clo" width={15}/> {time} </span></h6>
+                <Link to={`/workshops/${id}`}> 
+                  <h4 className="cardTitle">{title}</h4>
+                </Link>   
+                <h3 className="price">{formatPrice(price)}</h3>
+                <Button variant='warning'>Add to Cart</Button>     
+              </div>
+            ))}
+          </div>
+      </div>
+    </div>
+  );
+}
+
+const Marketing = () => {
+
+  const filteredDesign = shops.filter((shop) => 
+  (shop.theme.includes("mar")))
+
+  const formatPrice = (price) => {
+    return `${(price).toFixed(2)} EUR`
+  }
+
+  return (
+    <div className="row">
+      <div className="column left">
+        <h6 className="filterText">Filter by category:</h6>
+         <h5><Link to="/">All</Link></h5>
+        <h5><Link to="/design">Design</Link></h5>
+        <h5><Link to="/frontend">Frontend</Link></h5>
+        <h5><Link to="/backend">Backend</Link></h5>
+        <h5><Link to="/marketing">Marketing</Link></h5>
+      </div>
+      <div className="column right">
+        <h2 className="listTitle">Workshops</h2>
+          <div className="dictionary">
+            {Object.entries(filteredDesign).map(([id, {image, catIcon, title,date, time, price}]) => (
+                <div className="term" key={id}>
+                <Link to={`/workshops/${id}`}>
+                  <img className="bckImg" src={image} alt={title}/>
+                </Link>
+                <span><img src={catIcon} alt="icon" width={20}/></span>
+                <h6 className="dateText"><span><img src={calendar} alt="cal" width={15}/> {date} </span>
+                <span><img src={clock} alt="clo" width={15}/> {time} </span></h6>
+                <Link to={`/workshops/${id}`}> 
+                  <h4 className="cardTitle">{title}</h4>
+                </Link>   
+                <h3 className="price">{formatPrice(price)}</h3>
+                <Button variant='warning'>Add to Cart</Button>     
+              </div>
+            ))}
+          </div>
       </div>
     </div>
   );

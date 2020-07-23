@@ -6,8 +6,9 @@ import Fed from '../images/fed.png';
 import Bed from '../images/bed.png';
 import Mar from '../images/mar.png';
 
-const shops = {
-    "first-shop": {
+const shops = 
+    [
+    {
         id:1,
         image:BackgroundPic,
         catIcon:Brush,
@@ -22,7 +23,7 @@ const shops = {
 
 
     },
-    "second-shop": {
+    {
         id:2,
         image:BackgroundPic,
         catIcon:Fed,
@@ -36,7 +37,7 @@ const shops = {
         description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 
     },
-    "third-shop": {
+    {
         id:3,
         image:BackgroundPic,
         catIcon:Bed,
@@ -50,7 +51,7 @@ const shops = {
         description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 
     },
-    "fourth-shop": {
+    {
         id:4,
         image:BackgroundPic,
         catIcon:Mar,
@@ -64,7 +65,7 @@ const shops = {
         description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 
     },
-    "fifth-shop": {
+    {
         id:5,
         image:BackgroundPic,
         catIcon:Brush,
@@ -78,7 +79,7 @@ const shops = {
         description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 
     },
-    "sixt-shop": {
+     {
         id:6,
         image:BackgroundPic,
         catIcon:Fed,
@@ -92,6 +93,7 @@ const shops = {
         description:"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 
     }
-};
+]
+;
 
 export default shops;
