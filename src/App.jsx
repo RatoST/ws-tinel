@@ -13,6 +13,7 @@ import './App.css';
 import logo from './images/logo.svg'
 import clock from './images/eva_clock.png';
 import calendar from './images/calendar.png';
+import arrow from './images/arrow.png';
 
 const App = () => {
   return(
@@ -95,22 +96,45 @@ const LaunchShop = () => {
     }
 
   const { 
-    title, image, catIcon, time, price, speaker, description 
+    title, detImg, catIcon, date, time, price, speaker, description 
   } = shop;
 
+  const formatPrice = (price) => {
+    return `${(price).toFixed(2)} EUR`
+  }
+
+
   return (
-    <div>
-      <div>
-        <Link to="/">Natrag</Link>
+    <div className="row">
+      <div className="column left">
+        <Link to="/"><h6 className="backLink"><img className="arrow" src={arrow} alt="arrow" /> Natrag</h6></Link>
       </div>
-      <div>
-        <img src={image} alt={title} width={600} />
-        <span><img src={catIcon} alt={"icon"}/></span>
-        <h4>{time}</h4>
-        <h2>{title}</h2>
-        <h3>{speaker}</h3>
-        <h2>{price}</h2>
-        <h6>{description}</h6>
+      <div className="column right">
+        <img className="detBckImg" src={detImg} alt={title} />
+        <div className="row"> 
+
+        <div className="detDiv detLeft">
+        <h6 className="dateText"> <span className="iconDetails" ><img src={catIcon} alt={"icon"}/></span> <span><img className="timeIcon" src={calendar} alt="cal" /> {date} </span>
+        <span> <img className="timeIcon" src={clock} alt="clo"/> {time} </span></h6>
+        <h1 className="detTitle">{title}</h1>
+        <div className="speaker"><p className="speakerP">WITH</p><h4 className="speakerH">{speaker}</h4></div>
+        
+        <p className="descText">{description}</p>
+        </div> 
+        <div className="detDiv detRight">
+        <div className="box">
+          <h5>Buy Your Ticker</h5>
+          <h3 className="price">{formatPrice(price)}</h3>
+          <div>
+          {/* Dropdown */}
+          <div>
+          <Button variant="warning">Add to Cart</Button>
+          <h6>Subtotal:</h6>
+          </div>
+          </div>
+        </div>
+        </div>
+        </div>
       </div>
     </div>
   )

@@ -7,6 +7,13 @@ body {
   text-align: center;
 }
 
+h1 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 60px;
+  line-height: 120%;
+}
+
 h3 {
   font-style: normal;
   font-weight: bold;
@@ -56,14 +63,6 @@ nav {
   float: left;
 }
 
-.listTitle {
-  color: #1D1D1B;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 40px;
-  line-height: 125%;
-  text-align: left;
-}
 
 .filterText {
   color: #7F7F7F;
@@ -73,6 +72,16 @@ nav {
   padding-left: 3%;
   text-align: left;
   width: 15%;
+}
+
+
+.listTitle {
+  color: #1D1D1B;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 125%;
+  text-align: left;
 }
 
 .right {
@@ -93,6 +102,9 @@ nav {
 
 .dateText {
   color: #1D1D1B;
+  padding-top: 2px;
+  vertical-align: center;
+  
 }
 
 .dictionary {
@@ -137,4 +149,105 @@ nav {
   .column {
     width: 100%;
   }
+}
+
+/*Details*/
+
+.arrow {
+  height: 18px;
+  width: 21px;
+  vertical-align: bottom;
+}
+
+.backLink {
+  margin-top: 30%;
+}
+
+.box {
+
+  background: #FFFFFF;
+  box-shadow: 1px 2px 16px rgba(127, 127, 127, 0.25);
+  border-radius: 8px;
+  max-width: 300px;
+  padding:5%;
+}
+
+.detBckImg {
+  border-radius: 8px;
+  height: 382px;
+  margin-top: 4%;
+  margin-bottom: 2%;
+  width: 1040px;
+
+}
+
+.detTitle {
+  color: #0097CC;
+  margin-top: 2%;
+  margin-bottom: 1%;
+}
+
+.iconDetails {
+  margin: 5px;
+}
+
+.speaker {
+  display: inline-flex;
+}
+
+.speakerH {
+  color: #1D1D1B;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 27px;
+  line-height: 125%;
+}
+
+.speakerP {
+  color: #0D0D0D;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 125%;
+  margin-right: 5px;
+}
+
+.timeIcon {
+  height: 15px;
+  line-height: 125%;
+  margin: 5px;
+  width: 15px;
+}
+
+/*Details division*/
+
+.detDiv {
+  float: left;
+}
+
+.detLeft {
+  padding-left: 3%;
+  text-align: left;
+  width: 60%;
+}
+
+.detRight {
+  text-align: left;
+  width: 40%;
+}
+
+@media screen and (max-width: 600px) {
+  .detDiv {
+    width: 100%;
+  }
+}
+
+.descText {
+  color: #1D1D1B;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 150%;
+  max-width: 80%;
+  margin-top: 5%;
 }
