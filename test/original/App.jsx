@@ -7,7 +7,6 @@ import {
    Outlet, 
    useParams 
 } from 'react-router-dom';
-import _ from 'lodash';
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import shops from './utility/shops';
@@ -38,7 +37,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home filterStats={filterStats} setFilterStatus={setFilterStatus} />}/>
             <Route path="workshops" element={<Launch />}>
-              <Route path=":slug" element={<LaunchShop/>}/>
+              <Route path=":id" element={<LaunchShop/>}/>
             </Route>
             <Route path="*" element={<NotFound/>}/>
         </Routes>
@@ -76,10 +75,8 @@ const Home = ({filterStats, setFilterStatus}) => {
   }
 
 
-  // const filteredDesign = shops.filter((shop) => 
-  //   shop.theme.includes(filterStats));
-
-  // const filteredShop = _.find(shops, {theme:filterStats});
+  const filteredDesign = shops.filter((shop) => 
+    shop.theme.includes(filterStats));
 
   return (
     <div className="row">
@@ -94,16 +91,16 @@ const Home = ({filterStats, setFilterStatus}) => {
       <div className="column right">
         <h2 className="listTitle">Workshops</h2>
           <div className="dictionary">
-            {Object.entries(shops).map(([slug, {image, catIcon, title, date, time, price}]) => (
-              <Card className="term" key={slug}>
-              <Link to={`/workshops/${slug}`}>
+            {Object.entries(filteredDesign).map(([id, {image, catIcon, title, date, time, price}]) => (
+              <Card className="term" key={id}>
+              <Link to={`/workshops/${id}`}>
                 <Card.Img variant="top" src={image}/>
                 <span><img src={catIcon} alt="icon" width={20}/></span>
               </Link>
                 <Card.Body>
                   <h6 className="dateText"><span><img src={calendar} alt="cal" width={15}/> {date} </span>
                   <span><img src={clock} alt="clo" width={15}/> {time} </span></h6>
-                <Link to={`/workshops/${slug}`}>
+                <Link to={`/workshops/${id}`}>
                   <Card.Title><h4 className="cardTitle">{title}</h4></Card.Title>
                 </Link>
                   <Card.Text><h3 className="price">{formatPrice(price)}</h3></Card.Text>
@@ -126,8 +123,8 @@ const Launch = () => {
 
 // Link for details
 const LaunchShop = () => {
-  const { slug } = useParams();
-  const shop = shops[slug];
+  const { id } = useParams();
+  const shop = shops[id];
 
     if(!shop) {
       return <h2>Not Found!</h2>;
@@ -141,10 +138,8 @@ const LaunchShop = () => {
     return `${(price).toFixed(2)} EUR`
   }
 
-  // const filteredDesign = shops.filter((shop) => 
-  //   (shop.theme.includes(theme)));
-
-  const filteredShop = _.find(shops, {theme:theme});
+  const filteredDesign = shops.filter((shop) => 
+    (shop.theme.includes(theme)&&shop.id !== id));
 
   return (
     <>
@@ -184,15 +179,15 @@ const LaunchShop = () => {
       <div>
       <h2 className="listTitle">Similar Workshops</h2>
           <div className="dictionary">
-            {Object.entries(shops).map(([slug, {image, catIcon, title,date, time, price}]) => (
-                <div className="term" key={slug}>
-                <Link to={`/workshops/${slug}`}>
+            {Object.entries(filteredDesign).map(([id, {image, catIcon, title,date, time, price}]) => (
+                <div className="term" key={id}>
+                <Link to={`/workshops/${id}`}>
                   <img className="bckImg" src={image} alt={title}/>
                 </Link>
                 <span><img src={catIcon} alt="icon" width={20}/></span>
                 <h6 className="dateText"><span><img src={calendar} alt="cal" width={15}/> {date} </span>
                 <span><img src={clock} alt="clo" width={15}/> {time} </span></h6>
-                <Link to={`/workshops/${slug}`}> 
+                <Link to={`/workshops/${id}`}> 
                   <h4 className="cardTitle">{title}</h4>
                 </Link>   
                 <h3 className="price">{formatPrice(price)}</h3>
