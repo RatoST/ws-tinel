@@ -3,22 +3,24 @@ import {
   BrowserRouter as Router, 
    Routes, 
    Route, 
-   Link, 
-   Outlet, 
+   Link,  
    useParams 
 } from 'react-router-dom';
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
+import Cart from './components/Cart';
+import CheckoutForm from './components/ChekoutForm';
 import shops from './utility/shops';
 import './App.css';
 import logo from './images/logo.svg'
 import clock from './images/eva_clock.png';
 import calendar from './images/calendar.png';
 import arrow from './images/arrow.png';
-import Brush from './images/brush.png';
+import BrushS from './images/brush.png';
 import Fed from './images/fed.png';
 import Bed from './images/bed.png';
 import Mar from './images/mar.png';
+import CartImg from './images/cart.png';
 
 const App = () => {
 
@@ -32,14 +34,14 @@ const App = () => {
     <Router>
       <nav className="navBar">
         <Link to="/"><img onClick={changeFilterInit} className="logoImg" src={logo} alt="logo"/></Link>  
-        <h3>Cart</h3>  
+        <Link to="/cart"><img className="cartImg" src={CartImg} alt="cart"/></Link> 
       </nav>
         <Routes>
           <Route path="/" element={<Home filterStats={filterStats} setFilterStatus={setFilterStatus} />}/>
-            <Route path="workshops" element={<Launch />}>
-              <Route path=":id" element={<LaunchShop/>}/>
-            </Route>
-            <Route path="*" element={<NotFound/>}/>
+          <Route path="/cart" element={<Cart/>}/>
+          <Route path="/cart/checkoutForm" element={<CheckoutForm/>}/>
+          <Route path="workshops/:id" element={<LaunchShop/>}/>
+          <Route path="*" element={<NotFound/>}/>
         </Routes>
     </Router>
 
@@ -75,7 +77,7 @@ const Home = ({filterStats, setFilterStatus}) => {
   }
 
 
-  const filteredDesign = shops.filter((shop) => 
+  const filteredShops = shops.filter((shop) => 
     shop.theme.includes(filterStats));
 
   return (
@@ -83,19 +85,20 @@ const Home = ({filterStats, setFilterStatus}) => {
       <div className="column left">
         <h6 className="filterText">Filter by category:</h6>
         <h5 className="allClass" onClick={changeFilterInit}> All</h5>
-        <h5 className="filterClass" onClick={changeFilterDesign}><img className="filterImg" src={Brush} alt="icon" width={20}/>Design</h5>
+        <h5 className="filterClass" onClick={changeFilterDesign}><img className="filterImg" src={BrushS} alt="icon" width={20}/>Design</h5>
         <h5 className="filterClass" onClick={changeFilterFed}><img className="filterImg" src={Fed} alt="icon" width={18}/>Frontend</h5>
         <h5 className="filterClass" onClick={changeFilterBed}><img className="filterImg" src={Bed} alt="icon" width={18}/>Backend</h5>
         <h5 className="filterClass" onClick={changeFilterMar}><img className="filterImg" src={Mar} alt="icon" width={18}/>Marketing</h5>
       </div>
       <div className="column right">
         <h2 className="listTitle">Workshops</h2>
+        <h6 className="listDisplay">Displayed {filteredShops.length}</h6>
           <div className="dictionary">
-            {Object.entries(filteredDesign).map(([id, {image, catIcon, title, date, time, price}]) => (
+            {filteredShops.map(({id, image, catIcon, title, date, time, price}) => (
               <Card className="term" key={id}>
               <Link to={`/workshops/${id}`}>
                 <Card.Img variant="top" src={image}/>
-                <span><img src={catIcon} alt="icon" width={20}/></span>
+                <span><img className="cardIcon" src={catIcon} alt="icon" width={20}/></span>
               </Link>
                 <Card.Body>
                   <h6 className="dateText"><span><img src={calendar} alt="cal" width={15}/> {date} </span>
@@ -114,12 +117,6 @@ const Home = ({filterStats, setFilterStatus}) => {
   );
 }
 
-const Launch = () => {
-  return (
-    <div>
-        <Outlet />
-    </div>);
-}
 
 // Link for details
 const LaunchShop = () => {
@@ -138,7 +135,7 @@ const LaunchShop = () => {
     return `${(price).toFixed(2)} EUR`
   }
 
-  const filteredDesign = shops.filter((shop) => 
+  const filteredShops = shops.filter((shop) => 
     (shop.theme.includes(theme)&&shop.id !== id));
 
   return (
@@ -176,23 +173,26 @@ const LaunchShop = () => {
       </div>
     </div>
     <div className="row similar">
-      <div>
-      <h2 className="listTitle">Similar Workshops</h2>
-          <div className="dictionary">
-            {Object.entries(filteredDesign).map(([id, {image, catIcon, title,date, time, price}]) => (
-                <div className="term" key={id}>
+    <div className="column left"></div>
+      <div className="column right">
+      <h2 className="similarTitle">Similar Workshops</h2>
+      <div className="dictionary similarCards">
+            {filteredShops.map(({id, image, catIcon, title, date, time, price}) => (
+              <Card className="term" key={id}>
+              <Link to={`/workshops/${id}`}>
+                <Card.Img variant="top" src={image}/>
+                <span><img className="cardIcon" src={catIcon} alt="icon" width={20}/></span>
+              </Link>
+                <Card.Body>
+                  <h6 className="dateText"><span><img src={calendar} alt="cal" width={15}/> {date} </span>
+                  <span><img src={clock} alt="clo" width={15}/> {time} </span></h6>
                 <Link to={`/workshops/${id}`}>
-                  <img className="bckImg" src={image} alt={title}/>
+                  <Card.Title><h4 className="cardTitle">{title}</h4></Card.Title>
                 </Link>
-                <span><img src={catIcon} alt="icon" width={20}/></span>
-                <h6 className="dateText"><span><img src={calendar} alt="cal" width={15}/> {date} </span>
-                <span><img src={clock} alt="clo" width={15}/> {time} </span></h6>
-                <Link to={`/workshops/${id}`}> 
-                  <h4 className="cardTitle">{title}</h4>
-                </Link>   
-                <h3 className="price">{formatPrice(price)}</h3>
-                <Button variant='warning'>Add to Cart</Button>     
-              </div>
+                  <Card.Text><h3 className="price">{formatPrice(price)}</h3></Card.Text>
+                  <Button variant='warning'>Add to Cart</Button>   
+                </Card.Body>
+              </Card>
             ))}
           </div>
       </div>
@@ -205,7 +205,7 @@ const NotFound = () => {
   return (
     <div>
       <h1>Not found!</h1>
-      <p>Sorry, it seems page that you searched don`t exist here.</p>
+      <p>Sorry, it seems page that you searched doesn`t exist here.</p>
     </div>
   )
 }

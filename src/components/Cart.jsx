@@ -13,6 +13,7 @@ const Cart = () => {
       </div>
       <div className="column right">
       <h2 className="listTitle">Cart</h2>
+      <Link to="/cart/checkoutForm">Checkout</Link>
       </div>
     </div>
     </>      

@@ -104,6 +104,14 @@ nav {
   width: 15%;
 }
 
+.listDisplay {
+  color:#7F7F7F;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 125%;
+  margin-left: 10%;
+}
 
 .listTitle {
   color: #1D1D1B;
@@ -127,13 +135,20 @@ nav {
   z-index: -1;
 }
 
+.cardIcon {
+  margin-left: 80%;
+  margin-top: -10%;
+  margin-bottom: 0;
+  padding: 0;
+}
+
 .cardTitle {
   color: #0097CC;
 }
 
 .dateText {
   color: #1D1D1B;
-  padding-top: 2px;
+  margin-top: 0;
   vertical-align: center;
   
 }
@@ -284,5 +299,20 @@ nav {
 /* Details similar ws */
 
 .similar {
-  text-align: right;
+  background: #F2F2F2;
+}
+
+.similarTitle  {
+  color: #1D1D1B;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 40px;
+  line-height: 125%;
+  
+  margin-top: 5%;
+  margin-bottom: 2%;
+}
+
+.similarCards {
+  margin-left:0;
 }

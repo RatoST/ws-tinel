@@ -1,7 +1,7 @@
 import React from 'react';
 import BackgroundPic from '../images/backgroundW.png';
 import DetImg from '../images/detailBck.png'
-import Brush from '../images/brush.png';
+import Brush from '../images/brush2.png';
 import Fed from '../images/fed.png';
 import Bed from '../images/bed.png';
 import Mar from '../images/mar.png';
@@ -15,7 +15,7 @@ const shops =
         theme:"design",
         date:<time dateTime="2020-07-27">July 27 2020</time>,
         time:<time dateTime="08:00">08:00</time>,
-        title:"Desing WS",
+        title:"Desing for life.",
         price:199,
         speaker:"Mike Designer",
         detImg:DetImg,
@@ -30,7 +30,7 @@ const shops =
         theme:"fed",
         date:<time dateTime="2020-07-27">July 27 2020</time>,
         time:<time dateTime="10:00">10:00</time>,
-        title:"FrontEndDev WS",
+        title:"FrontEnd is it hard?",
         price:149,
         speaker:"Shime Razvojnik",
         detImg:DetImg,
@@ -44,7 +44,7 @@ const shops =
         theme:"bed",
         date:<time dateTime="2020-07-27">July 27 2020</time>,
         time:<time dateTime="12:00">12:00</time>,
-        title:"BackEndDev WS",
+        title:"BackEndDev on easy way.",
         price:237,
         speaker:"Mate Znanstvenik",
         detImg:DetImg,
