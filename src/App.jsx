@@ -9,7 +9,6 @@ import {
 } from 'react-router-dom';
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
-import CardDeck from 'react-bootstrap/CardDeck'
 import shops from './utility/shops';
 import './App.css';
 import logo from './images/logo.svg'
@@ -33,7 +32,7 @@ const App = () => {
     <Router>
       <nav className="navBar">
         <Link to="/"><img onClick={changeFilterInit} className="logoImg" src={logo} alt="logo"/></Link>  
-        <h3></h3>  
+        <h3>Cart</h3>  
       </nav>
         <Routes>
           <Route path="/" element={<Home filterStats={filterStats} setFilterStatus={setFilterStatus} />}/>
@@ -85,27 +84,29 @@ const Home = ({filterStats, setFilterStatus}) => {
         <h6 className="filterText">Filter by category:</h6>
         <h5 className="allClass" onClick={changeFilterInit}> All</h5>
         <h5 className="filterClass" onClick={changeFilterDesign}><img className="filterImg" src={Brush} alt="icon" width={20}/>Design</h5>
-        <h5 className="filterClass" onClick={changeFilterFed}><img className="filterImg" src={Fed} alt="icon" width={20}/>Frontend</h5>
-        <h5 className="filterClass" onClick={changeFilterBed}><img className="filterImg" src={Bed} alt="icon" width={20}/>Backend</h5>
-        <h5 className="filterClass" onClick={changeFilterMar}><img className="filterImg" src={Mar} alt="icon" width={20}/>Marketing</h5>
+        <h5 className="filterClass" onClick={changeFilterFed}><img className="filterImg" src={Fed} alt="icon" width={18}/>Frontend</h5>
+        <h5 className="filterClass" onClick={changeFilterBed}><img className="filterImg" src={Bed} alt="icon" width={18}/>Backend</h5>
+        <h5 className="filterClass" onClick={changeFilterMar}><img className="filterImg" src={Mar} alt="icon" width={18}/>Marketing</h5>
       </div>
       <div className="column right">
         <h2 className="listTitle">Workshops</h2>
           <div className="dictionary">
-            {Object.entries(filteredDesign).map(([id, {image, catIcon, title,date, time, price}]) => (
-                <div className="term" key={id}>
-                <Link to={`/workshops/${id}`}>
-                  <img className="bckImg" src={image} alt={title}/>
-                </Link>
+            {Object.entries(filteredDesign).map(([id, {image, catIcon, title, date, time, price}]) => (
+              <Card className="term" key={id}>
+              <Link to={`/workshops/${id}`}>
+                <Card.Img variant="top" src={image}/>
                 <span><img src={catIcon} alt="icon" width={20}/></span>
-                <h6 className="dateText"><span><img src={calendar} alt="cal" width={15}/> {date} </span>
-                <span><img src={clock} alt="clo" width={15}/> {time} </span></h6>
-                <Link to={`/workshops/${id}`}> 
-                  <h4 className="cardTitle">{title}</h4>
-                </Link>   
-                <h3 className="price">{formatPrice(price)}</h3>
-                <Button variant='warning'>Add to Cart</Button>     
-              </div>
+              </Link>
+                <Card.Body>
+                  <h6 className="dateText"><span><img src={calendar} alt="cal" width={15}/> {date} </span>
+                  <span><img src={clock} alt="clo" width={15}/> {time} </span></h6>
+                <Link to={`/workshops/${id}`}>
+                  <Card.Title><h4 className="cardTitle">{title}</h4></Card.Title>
+                </Link>
+                  <Card.Text><h3 className="price">{formatPrice(price)}</h3></Card.Text>
+                  <Button variant='warning'>Add to Cart</Button>   
+                </Card.Body>
+              </Card>
             ))}
           </div>
       </div>

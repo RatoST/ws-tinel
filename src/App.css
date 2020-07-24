@@ -106,12 +106,11 @@ nav {
   font-weight: bold;
   font-size: 40px;
   line-height: 125%;
-  margin-left: 10%;
   margin-top: 2%;
 }
 
 .right {
-  text-align: left;
+  text-align: left !important;
   width: 80%;
 }
 /* Card */
@@ -138,17 +137,14 @@ nav {
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 1rem auto;
-  max-width: 90%;
+  max-width: 80%;
+  text-align: left;
 }
 
 .dictionary > .term {
   text-align: left;
   max-width: 20rem;
   margin-bottom: 3rem;
-  padding: 2rem;
-  border-radius: 3px;
-  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.05), 0 5px 20px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
   transition: all 100ms ease-in-out;
 }
 
@@ -162,6 +158,7 @@ nav {
 
 .term {
   overflow: visible;
+  width: 30%;
 }
 
 /* Clear floats after the columns */
