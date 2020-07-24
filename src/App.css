@@ -54,6 +54,11 @@ nav {
   text-align: left;
 }
 
+.cartImg {
+  width: 24px;
+  margin-left: 60%;
+}
+
 .logoImg {
   padding: 1%;
 }

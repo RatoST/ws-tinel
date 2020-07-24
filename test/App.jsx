@@ -7,9 +7,11 @@ import {
    Outlet, 
    useParams 
 } from 'react-router-dom';
+import _ from 'lodash';
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
 import shops from './utility/shops';
+import Cart from './components/Cart';
 import './App.css';
 import logo from './images/logo.svg'
 import clock from './images/eva_clock.png';
@@ -19,25 +21,40 @@ import Brush from './images/brush.png';
 import Fed from './images/fed.png';
 import Bed from './images/bed.png';
 import Mar from './images/mar.png';
+import CartImg from './images/cart.png';
 
 const App = () => {
 
   const [filterStats, setFilterStatus] = useState("");
+  const [items, setItems] = useState([]);
 
   const changeFilterInit = () => {
     setFilterStatus("");
   }
 
+  const addItem = (item) => {
+    const newInput = [...items, item];
+    setItems(newInput);
+  };
+
+
+
   return(
     <Router>
       <nav className="navBar">
         <Link to="/"><img onClick={changeFilterInit} className="logoImg" src={logo} alt="logo"/></Link>  
-        <h3>Cart</h3>  
+        <Link to="/cart"><img className="cartImg" src={CartImg} alt="cart"/></Link>
       </nav>
         <Routes>
-          <Route path="/" element={<Home filterStats={filterStats} setFilterStatus={setFilterStatus} />}/>
+          <Route path="/" element={
+          <Home 
+          addItem={addItem} 
+          filterStats={filterStats} 
+          setFilterStatus={setFilterStatus}   
+          />}/>
+          <Route path="/cart" element={<Cart/>}/>
             <Route path="workshops" element={<Launch />}>
-              <Route path=":id" element={<LaunchShop/>}/>
+              <Route path=":slug" element={<LaunchShop/>}/>
             </Route>
             <Route path="*" element={<NotFound/>}/>
         </Routes>
@@ -46,9 +63,12 @@ const App = () => {
   );
 }
 
-const Home = ({filterStats, setFilterStatus}) => {
+const Home = ({ addItem, filterStats, setFilterStatus}) => {
 
-  
+  const handleAdd = (event, item) => {
+    // event.preventDefault();
+    addItem(item);
+  };
 
   const formatPrice = (price) => {
     return `${(price).toFixed(2)} EUR`
@@ -75,8 +95,10 @@ const Home = ({filterStats, setFilterStatus}) => {
   }
 
 
-  const filteredDesign = shops.filter((shop) => 
-    shop.theme.includes(filterStats));
+  // const filteredDesign = shops.filter((shop) => 
+  //   shop.theme.includes(filterStats));
+
+  // const filteredShop = _.find(shops, {theme:filterStats});
 
   return (
     <div className="row">
@@ -91,20 +113,25 @@ const Home = ({filterStats, setFilterStatus}) => {
       <div className="column right">
         <h2 className="listTitle">Workshops</h2>
           <div className="dictionary">
-            {Object.entries(filteredDesign).map(([id, {image, catIcon, title, date, time, price}]) => (
-              <Card className="term" key={id}>
-              <Link to={`/workshops/${id}`}>
+            {Object.entries(shops).map(([slug, {image, catIcon, title, date, time, price}]) => (
+              <Card className="term" key={slug}>
+              <Link to={`/workshops/${slug}`}>
                 <Card.Img variant="top" src={image}/>
                 <span><img src={catIcon} alt="icon" width={20}/></span>
               </Link>
                 <Card.Body>
                   <h6 className="dateText"><span><img src={calendar} alt="cal" width={15}/> {date} </span>
                   <span><img src={clock} alt="clo" width={15}/> {time} </span></h6>
-                <Link to={`/workshops/${id}`}>
+                <Link to={`/workshops/${slug}`}>
                   <Card.Title><h4 className="cardTitle">{title}</h4></Card.Title>
                 </Link>
                   <Card.Text><h3 className="price">{formatPrice(price)}</h3></Card.Text>
-                  <Button variant='warning'>Add to Cart</Button>   
+                  <Button 
+                    variant='warning'
+                    onClick={handleAdd(shops)}
+                    >
+                    Add to Cart
+                  </Button>   
                 </Card.Body>
               </Card>
             ))}
@@ -123,8 +150,8 @@ const Launch = () => {
 
 // Link for details
 const LaunchShop = () => {
-  const { id } = useParams();
-  const shop = shops[id];
+  const { slug } = useParams();
+  const shop = shops[slug];
 
     if(!shop) {
       return <h2>Not Found!</h2>;
@@ -138,8 +165,10 @@ const LaunchShop = () => {
     return `${(price).toFixed(2)} EUR`
   }
 
-  const filteredDesign = shops.filter((shop) => 
-    (shop.theme.includes(theme)&&shop.id !== id));
+  // const filteredDesign = shops.filter((shop) => 
+  //   (shop.theme.includes(theme)));
+
+  // const filteredShop = _.find(shops, {theme:theme});
 
   return (
     <>
@@ -179,15 +208,15 @@ const LaunchShop = () => {
       <div>
       <h2 className="listTitle">Similar Workshops</h2>
           <div className="dictionary">
-            {Object.entries(filteredDesign).map(([id, {image, catIcon, title,date, time, price}]) => (
-                <div className="term" key={id}>
-                <Link to={`/workshops/${id}`}>
+            {Object.entries(shops).map(([slug, {image, catIcon, title,date, time, price}]) => (
+                <div className="term" key={slug}>
+                <Link to={`/workshops/${slug}`}>
                   <img className="bckImg" src={image} alt={title}/>
                 </Link>
                 <span><img src={catIcon} alt="icon" width={20}/></span>
                 <h6 className="dateText"><span><img src={calendar} alt="cal" width={15}/> {date} </span>
                 <span><img src={clock} alt="clo" width={15}/> {time} </span></h6>
-                <Link to={`/workshops/${id}`}> 
+                <Link to={`/workshops/${slug}`}> 
                   <h4 className="cardTitle">{title}</h4>
                 </Link>   
                 <h3 className="price">{formatPrice(price)}</h3>
