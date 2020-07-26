@@ -25,7 +25,8 @@ const Workshop = ({item, addWorkshop, setAddWorkshop }) => {
       }
     ]; 
     
-    const handleAdd = () => {
+    const handleAdd = (event) => {
+      event.preventDefault();
       setAddWorkshop([...addWorkshop, cartArray]);
       // setAddWorkshop(cartArray);
     }

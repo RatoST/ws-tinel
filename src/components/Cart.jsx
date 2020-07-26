@@ -5,6 +5,7 @@ import _ from 'lodash';
 import '../App.css';
 import arrow from '../images/arrow.png';
 import { Card } from 'react-bootstrap';
+import trash from '../images/trash.png'
 
 const Cart = ({ addWorkshop, deleteWorkshop }) => {
 
@@ -35,7 +36,10 @@ const Cart = ({ addWorkshop, deleteWorkshop }) => {
                 <Card.Title>{workshop.title}</Card.Title>
                 <Card.Text>{formatPrice(workshop.price)}</Card.Text>
               </Card.Body>
-            </Card>         
+              <Button variant="warning" className="buttonQty" onClick={()=>(workshop.quantity > 0) ? workshop.quantity - 1 : null }>-</Button>
+              <Button variant="warning" className="buttonQty" onClick={()=> workshop.quantity + 1}>+</Button>       
+              <Button variant="warning" className="cartDelete" onClick={()=> deleteWorkshop(workshop.id)}><img src={trash} alt="icon" /></Button>
+            </Card> 
           </div>
         ))
           ) : ( 

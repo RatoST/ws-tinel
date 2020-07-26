@@ -329,3 +329,13 @@ nav {
 .similarCards {
   margin-left:0;
 }
+
+/*Cart*/
+
+.buttonQty {
+  width: 35px;
+}
+
+.cartDelete {
+  width:100px;
+}
