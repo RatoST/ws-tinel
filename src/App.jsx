@@ -22,6 +22,7 @@ import Fed from './images/fed.png';
 import Bed from './images/bed.png';
 import Mar from './images/mar.png';
 import CartImg from './images/cart.png';
+import CartNotEmpty from './images/cartNotEmpty.png'
 
 const App = () => {
   
@@ -42,7 +43,7 @@ const App = () => {
     <Router>
       <nav className="navBar">
         <Link to="/"><img onClick={changeFilterInit} className="logoImg" src={logo} alt="logo"/></Link>  
-        <Link to="/cart"><img className="cartImg" src={CartImg} alt="cart"/></Link> 
+        <Link to="/cart"><img className="cartImg" src={(addWorkshop.length > 0) ? CartNotEmpty: CartImg} alt="cart"/><span className="cartDet">{ (addWorkshop.length > 0) ? `${((addWorkshop).length)} Workshop in Cart` : 'Cart is Empty' }</span></Link> 
       </nav>
         <Routes>
           <Route path="/" element={<Home filterStats={filterStats} setFilterStatus={setFilterStatus} addWorkshop={addWorkshop} setAddWorkshop={setAddWorkshop} />}/>

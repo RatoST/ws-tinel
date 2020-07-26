@@ -59,6 +59,15 @@ nav {
   margin-left: 60%;
 }
 
+.cartDet {
+  color: #0D0D0D;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 125%;
+  margin-left:1%;
+}
+
 .logoImg {
   padding: 1%;
 }
