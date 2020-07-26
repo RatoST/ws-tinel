@@ -12,6 +12,7 @@ import Card from 'react-bootstrap/Card'
 
 import Cart from './components/Cart';
 import CheckoutForm from './components/ChekoutForm';
+import Footer from './components/Footer';
 import shops from './utility/shops';
 import Workshop from './components/Workshop';
 import './App.css';
@@ -56,8 +57,10 @@ const App = () => {
           <Route path="workshops/:id" element={<LaunchShop/>}/>
           <Route path="*" element={<NotFound/>}/>
         </Routes>
+        <footer>
+        <Footer />
+        </footer>
     </Router>
-
   );
 }
 

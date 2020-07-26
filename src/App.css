@@ -7,6 +7,12 @@ body {
   text-align: center;
 }
 
+footer {
+  margin:0;
+  padding: 5%;
+  text-align: center;
+}
+
 h1 {
   font-style: normal;
   font-weight: bold;
