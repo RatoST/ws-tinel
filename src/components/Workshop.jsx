@@ -18,7 +18,7 @@ const Workshop = ({item, addWorkshop, setAddWorkshop }) => {
     const cartArray = [
       { 
         id: item.id,
-        img: item.image,
+        image: item.image,
         title: item.title,
         price: item.price,
         quantity: 1,
