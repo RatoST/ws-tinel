@@ -24,11 +24,25 @@ import CartImg from './images/cart.png';
 
 const App = () => {
 
+  const cartArray = [
+    { 
+      id: null,
+      title: '',
+      price: null,
+    }
+  ];
+
+  const [items, setItems] = useState(cartArray);
+
   const [filterStats, setFilterStatus] = useState("");
 
   const changeFilterInit = () => {
     setFilterStatus("");
   }
+
+  const addItem = (item) => {
+    setItems([...items, item])
+  };
 
   return(
     <Router>
@@ -37,8 +51,8 @@ const App = () => {
         <Link to="/cart"><img className="cartImg" src={CartImg} alt="cart"/></Link> 
       </nav>
         <Routes>
-          <Route path="/" element={<Home filterStats={filterStats} setFilterStatus={setFilterStatus} />}/>
-          <Route path="/cart" element={<Cart/>}/>
+          <Route path="/" element={<Home addItem={addItem} filterStats={filterStats} setFilterStatus={setFilterStatus} />}/>
+          <Route path="/cart" element={<Cart items={items} />}/>
           <Route path="/cart/checkoutForm" element={<CheckoutForm/>}/>
           <Route path="workshops/:id" element={<LaunchShop/>}/>
           <Route path="*" element={<NotFound/>}/>
@@ -48,9 +62,17 @@ const App = () => {
   );
 }
 
-const Home = ({filterStats, setFilterStatus}) => {
+const Home = ({ addItem, filterStats, setFilterStatus}) => {
 
-  
+  const initialCartState =  { id: null, title: '', price:null };
+
+
+  const [item, setItem] = useState(initialCartState);
+
+  const handleButton = (event) => {
+    const {name, value} = event.target;
+    setItem({ ...item, [name]:value})
+  }
 
   const formatPrice = (price) => {
     return `${(price).toFixed(2)} EUR`
@@ -94,6 +116,13 @@ const Home = ({filterStats, setFilterStatus}) => {
         <h2 className="listTitle">Workshops</h2>
         <h6 className="listDisplay">Displayed {filteredShops.length}</h6>
           <div className="dictionary">
+          <form 
+            onSubmit={event => {
+              event.preventDefault()
+              addItem(item)
+              setItem(initialCartState)
+            }}
+          >
             {filteredShops.map(({id, image, catIcon, title, date, time, price}) => (
               <Card className="term" key={id}>
               <Link to={`/workshops/${id}`}>
@@ -104,13 +133,14 @@ const Home = ({filterStats, setFilterStatus}) => {
                   <h6 className="dateText"><span><img src={calendar} alt="cal" width={15}/> {date} </span>
                   <span><img src={clock} alt="clo" width={15}/> {time} </span></h6>
                 <Link to={`/workshops/${id}`}>
-                  <Card.Title><h4 className="cardTitle">{title}</h4></Card.Title>
+                  <Card.Title><h4 type="text" name="title" value={item.title} className="cardTitle">{title}</h4></Card.Title>
                 </Link>
-                  <Card.Text><h3 className="price">{formatPrice(price)}</h3></Card.Text>
-                  <Button variant='warning'>Add to Cart</Button>   
+                  <Card.Text><h3 type="text" name="price" value={item.price} className="price">{formatPrice(price)}</h3></Card.Text>
+                  <Button onClick={handleButton} variant='warning'>Add to Cart</Button>   
                 </Card.Body>
               </Card>
             ))}
+            </form>
           </div>
       </div>
     </div>
