@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button'
 import _ from 'lodash';
@@ -7,7 +7,9 @@ import arrow from '../images/arrow.png';
 import { Card } from 'react-bootstrap';
 import trash from '../images/trash.png'
 
-const Cart = ({ addWorkshop, deleteWorkshop }) => {
+const Cart = ({ workshops, deleteWorkshop }) => {
+
+  const [quantity, setQuantity] = useState()
 
   const formatPrice = (price) => {
     return price && _.isNumber(price) ? `${(price).toFixed(2)} EUR`:
@@ -19,6 +21,16 @@ const Cart = ({ addWorkshop, deleteWorkshop }) => {
       null;
     }
 
+    
+  const increase = () => {
+    setQuantity(quantity + 1);
+  }
+
+  const decrease = () => {
+    setQuantity(quantity - 1);
+  }
+
+
   return (
     <>
     <div className="row">
@@ -27,18 +39,35 @@ const Cart = ({ addWorkshop, deleteWorkshop }) => {
       </div>
       <div className="column right">
       <h2 className="listTitle">Cart</h2>      
-      {addWorkshop.length > 0 ? (
-        addWorkshop.map((workshop) => (
+      {workshops.length > 0 ? (
+        workshops.map((workshop) => (
           <div key={workshop.id}>
-            <Card>
-              <Card.Img variant="left" src={workshop.image}/>
+            <Card className="card-cart">
+              <Card.Img className="card-img-left" variant="top" src={workshop.image}/>
               <Card.Body>
-                <Card.Title>{workshop.title}</Card.Title>
-                <Card.Text>{formatPrice(workshop.price)}</Card.Text>
+                <Card.Title className="card-cart-title"><h4 className="cardTitle">{workshop.title}</h4></Card.Title>
+                <tr className="priceCell">
+                  <td>
+                    <Card.Text className="price card-cart-text">{formatPrice(workshop.price)}</Card.Text>
+                  </td>
+                  <td></td>
+                  <td>
+                    <Button variant="warning" className="cartDelete" onClick={()=> deleteWorkshop(workshop.id)}><img className="deleteIcon" src={trash} alt="icon" /></Button>
+                  </td>
+                </tr>
+                <tr className="quantityCell">
+                  <td className="cart-subotal">SUBTOTAL:{formatPrice(workshop.price * workshop.quantity)}</td>
+                  <td>
+                    <Button variant="warning" className="buttonQty" onClick={()=>(workshop.quantity > 0) ? decrease : null }>-</Button>
+                  </td>
+                  <td>
+                    <Card.Text className="card-cart-text">{workshop.quantity}</Card.Text>
+                  </td>
+                  <td>
+                    <Button variant="warning" className="buttonQty" onClick={increase}>+</Button>
+                  </td>
+                  </tr>
               </Card.Body>
-              <Button variant="warning" className="buttonQty" onClick={()=>(workshop.quantity > 0) ? workshop.quantity - 1 : null }>-</Button>
-              <Button variant="warning" className="buttonQty" onClick={()=> workshop.quantity + 1}>+</Button>       
-              <Button variant="warning" className="cartDelete" onClick={()=> deleteWorkshop(workshop.id)}><img src={trash} alt="icon" /></Button>
             </Card> 
           </div>
         ))
@@ -49,7 +78,10 @@ const Cart = ({ addWorkshop, deleteWorkshop }) => {
           </Card>
         </div>    
               )}  
-          {addWorkshop.length > 0 ? (<Link to="/cart/checkoutForm"><Button variant="warning">Checkout</Button></Link>) : null}    
+        <div>
+            {totalPrice}
+          {workshops.length > 0 ? (<Link to="/cart/checkoutForm"><Button className="checkOutBtn" variant="warning">Checkout</Button></Link>) : null}    
+        </div>
       </div>
     </div>
     </>      

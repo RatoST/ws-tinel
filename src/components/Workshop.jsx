@@ -1,34 +1,32 @@
 import React from 'react';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
+import _ from 'lodash';
+
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
-import _ from 'lodash';
+
 import '../App.css';
 
-import clock from '../images/eva_clock.png';
 import calendar from '../images/calendar.png';
+import clock from '../images/eva_clock.png';
 
-const Workshop = ({item, addWorkshop, setAddWorkshop }) => {
+const Workshop = ({item, workshops, setWorkshops }) => {
 
   const formatPrice = (price) => {
     return price && _.isNumber(price) ? `${(price).toFixed(2)} EUR`:
       null;
     }
   
-    const cartArray = [
-      { 
-        id: item.id,
-        image: item.image,
-        title: item.title,
-        price: item.price,
-        quantity: 1,
-      }
-    ]; 
     
     const handleAdd = (event) => {
       event.preventDefault();
-      setAddWorkshop([...addWorkshop, cartArray]);
-      // setAddWorkshop(cartArray);
+      const meInCart = _.find(workshops, { id: item.id });
+      if (meInCart) {
+        const cartWithoutMe = _.filter(workshops, ws => ws.id !== item.id);
+        setWorkshops([...cartWithoutMe, { ...meInCart, quantity: meInCart.quantity + 1 }]);
+      } else {
+        setWorkshops([...workshops, { ...item, quantity: 1 }]);
+      }
     }
 
   return(
@@ -42,10 +40,10 @@ const Workshop = ({item, addWorkshop, setAddWorkshop }) => {
           <h6 className="dateText"><span><img src={calendar} alt="cal" width={15}/> {item.date} </span>
           <span><img src={clock} alt="clo" width={15}/> {item.time} </span></h6>
           <Link to={`/workshops/${item.id}`}>
-          <Card.Title><h4 type="text" name="title" className="cardTitle">{item.title}</h4></Card.Title>
+            <Card.Title><h4 type="text" name="title" className="cardTitle">{item.title}</h4></Card.Title>
           </Link>
           <Card.Text><span type="text" name="price"  className="price">{formatPrice(item.price)}</span></Card.Text>
-          <Button onClick={handleAdd} variant='warning'>Add to Cart</Button>   
+          <Button onClick={handleAdd} variant="warning">Add to Cart</Button>   
         </Card.Body>
       </Card>
     </div>

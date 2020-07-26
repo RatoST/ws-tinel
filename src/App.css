@@ -136,6 +136,11 @@ nav {
   text-align: left !important;
   width: 80%;
 }
+
+.workshopsContainer {
+  display:flex;
+  flex-wrap:wrap;
+}
 /* Card */
 
 .bckImg {
@@ -192,7 +197,6 @@ nav {
 
 .term {
   overflow: visible;
-  width: 30%;
 }
 
 /* Clear floats after the columns */
@@ -337,5 +341,48 @@ nav {
 }
 
 .cartDelete {
-  width:100px;
+  width:50px;
+}
+
+.cart-subotal {
+  color: #7F7F7F;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 125%;
+  padding: 1rem;
+}
+
+.card-cart {
+  width: 50%;
+}
+
+.card-cart-text {
+  text-align: center;
+}
+
+.card-cart-title {
+  margin-top: 0;
+}
+
+.card-img-left {
+  width: 100%;
+}
+
+.checkOutBtn {
+  margin-left: 20%;
+  margin-top: 2%;
+}
+
+.deleteIcon {
+  width:20px;
+}
+
+.priceCell {
+  margin-bottom: 2%;
+}
+
+.qunatityCell {
+  margin-top: 2%;
+  text-align: center;
 }

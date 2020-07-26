@@ -1,9 +1,10 @@
 import React from 'react';
+
 import BackgroundPic from '../images/backgroundW.png';
-import DetImg from '../images/detailBck.png'
-import Brush from '../images/brush.png';
-import Fed from '../images/fed.png';
 import Bed from '../images/bed.png';
+import Brush from '../images/brush.png';
+import DetImg from '../images/detailBck.png'
+import Fed from '../images/fed.png';
 import Mar from '../images/mar.png';
 
 const shops = 
@@ -114,7 +115,7 @@ const shops =
         theme:"design",
         date:<time dateTime="2020-08-14">Aug 14 2020</time>,
         time:<time dateTime="08:00">08:00</time>,
-        title:"Designfor dummies",
+        title:"Design for dummies",
         price:439,
         speaker:"Katarina Her",
         detImg:DetImg,

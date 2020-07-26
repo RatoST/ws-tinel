@@ -6,48 +6,52 @@ import {
    Link,  
    useParams 
 } from 'react-router-dom';
+
 import Button from 'react-bootstrap/Button'
 import Card from 'react-bootstrap/Card'
+
 import Cart from './components/Cart';
 import CheckoutForm from './components/ChekoutForm';
 import shops from './utility/shops';
 import Workshop from './components/Workshop';
 import './App.css';
-import logo from './images/logo.svg'
-import clock from './images/eva_clock.png';
-import calendar from './images/calendar.png';
+
 import arrow from './images/arrow.png';
-import BrushS from './images/brush.png';
-import Fed from './images/fed.png';
 import Bed from './images/bed.png';
-import Mar from './images/mar.png';
+import BrushS from './images/brush.png';
+import calendar from './images/calendar.png';
 import CartImg from './images/cart.png';
 import CartNotEmpty from './images/cartNotEmpty.png'
+import clock from './images/eva_clock.png';
+import Fed from './images/fed.png';
+import logo from './images/logo.svg'
+import Mar from './images/mar.png';
+
 
 const App = () => {
   
   const initCartArray = []; 
 
   const [filterStats, setFilterStatus] = useState("");
-  const [addWorkshop, setAddWorkshop] = useState(initCartArray);
+  const [workshops, setWorkshops] = useState(initCartArray);
 
   const changeFilterInit = () => {
     setFilterStatus("");
   }
 
   const deleteWorkshop = (id) => {
-    setAddWorkshop(addWorkshop.filter((addWork) => addWork.id !== id))
+    setWorkshops(workshops.filter((addWork) => addWork.id !== id))
   };
 
   return(
     <Router>
       <nav className="navBar">
         <Link to="/"><img onClick={changeFilterInit} className="logoImg" src={logo} alt="logo"/></Link>  
-        <Link to="/cart"><img className="cartImg" src={(addWorkshop.length > 0) ? CartNotEmpty: CartImg} alt="cart"/><span className="cartDet">{ (addWorkshop.length > 0) ? `${((addWorkshop).length)} Workshop in Cart` : 'Cart is Empty' }</span></Link> 
+        <Link to="/cart"><img className="cartImg" src={(workshops.length > 0) ? CartNotEmpty: CartImg} alt="cart"/><span className="cartDet">{ (workshops.length > 0) ? `${((workshops).length)} Workshop in Cart` : "Cart is Empty" }</span></Link> 
       </nav>
         <Routes>
-          <Route path="/" element={<Home filterStats={filterStats} setFilterStatus={setFilterStatus} addWorkshop={addWorkshop} setAddWorkshop={setAddWorkshop} />}/>
-          <Route path="/cart" element={<Cart addWorkshop={addWorkshop} deleteWorkshop={deleteWorkshop}/>}/>
+          <Route path="/" element={<Home filterStats={filterStats} setFilterStatus={setFilterStatus} workshops={workshops} setWorkshops={setWorkshops} />}/>
+          <Route path="/cart" element={<Cart workshops={workshops} deleteWorkshop={deleteWorkshop}/>}/>
           <Route path="/cart/checkoutForm" element={<CheckoutForm/>}/>
           <Route path="workshops/:id" element={<LaunchShop/>}/>
           <Route path="*" element={<NotFound/>}/>
@@ -57,7 +61,7 @@ const App = () => {
   );
 }
 
-const Home = ({ filterStats, setFilterStatus, addWorkshop, setAddWorkshop}) => {
+const Home = ({ filterStats, setFilterStatus, workshops, setWorkshops}) => {
 
   const changeFilterInit = () => {
     setFilterStatus("");
@@ -96,7 +100,9 @@ const Home = ({ filterStats, setFilterStatus, addWorkshop, setAddWorkshop}) => {
       <div className="column right">
         <h2 className="listTitle">Workshops</h2>
         <h6 className="listDisplay">Displayed {filteredShops.length}</h6>
-          {filteredShops.map(item => <Workshop item={item} key={item.id} addWorkshop={addWorkshop} setAddWorkshop={setAddWorkshop} />)}        
+          <div className="workshopsContainer">
+            {filteredShops.map(item => <Workshop item={item} key={item.id} workshops={workshops} setWorkshops={setWorkshops} />)}        
+          </div>
       </div>
     </div>
   );
@@ -122,6 +128,7 @@ const LaunchShop = () => {
 
   const filteredShops = shops.filter((shop) => 
     (shop.theme.includes(theme)&&shop.id !== id));
+    
 
   return (
     <>
@@ -175,7 +182,7 @@ const LaunchShop = () => {
                   <Card.Title><h4 className="cardTitle">{title}</h4></Card.Title>
                 </Link>
                   <Card.Text><span className="price">{formatPrice(price)}</span></Card.Text>
-                  <Button variant='warning'>Add to Cart</Button>   
+                  <Button variant="warning">Add to Cart</Button>   
                 </Card.Body>
               </Card>
             ))}
