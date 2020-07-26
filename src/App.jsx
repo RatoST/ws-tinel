@@ -11,6 +11,7 @@ import Card from 'react-bootstrap/Card'
 import Cart from './components/Cart';
 import CheckoutForm from './components/ChekoutForm';
 import shops from './utility/shops';
+import Workshop from './components/Workshop';
 import './App.css';
 import logo from './images/logo.svg'
 import clock from './images/eva_clock.png';
@@ -23,25 +24,18 @@ import Mar from './images/mar.png';
 import CartImg from './images/cart.png';
 
 const App = () => {
-
-  const cartArray = [
-    { 
-      id: null,
-      title: '',
-      price: null,
-    }
-  ];
-
-  const [items, setItems] = useState(cartArray);
+  
+  const initCartArray = []; 
 
   const [filterStats, setFilterStatus] = useState("");
+  const [addWorkshop, setAddWorkshop] = useState(initCartArray);
 
   const changeFilterInit = () => {
     setFilterStatus("");
   }
 
-  const addItem = (item) => {
-    setItems([...items, item])
+  const deleteWorkshop = (id) => {
+    setAddWorkshop(addWorkshop.filter((addWork) => addWork.id !== id))
   };
 
   return(
@@ -51,8 +45,8 @@ const App = () => {
         <Link to="/cart"><img className="cartImg" src={CartImg} alt="cart"/></Link> 
       </nav>
         <Routes>
-          <Route path="/" element={<Home addItem={addItem} filterStats={filterStats} setFilterStatus={setFilterStatus} />}/>
-          <Route path="/cart" element={<Cart items={items} />}/>
+          <Route path="/" element={<Home filterStats={filterStats} setFilterStatus={setFilterStatus} addWorkshop={addWorkshop} setAddWorkshop={setAddWorkshop} />}/>
+          <Route path="/cart" element={<Cart addWorkshop={addWorkshop} deleteWorkshop={deleteWorkshop}/>}/>
           <Route path="/cart/checkoutForm" element={<CheckoutForm/>}/>
           <Route path="workshops/:id" element={<LaunchShop/>}/>
           <Route path="*" element={<NotFound/>}/>
@@ -62,21 +56,7 @@ const App = () => {
   );
 }
 
-const Home = ({ addItem, filterStats, setFilterStatus}) => {
-
-  const initialCartState =  { id: null, title: '', price:null };
-
-
-  const [item, setItem] = useState(initialCartState);
-
-  const handleButton = (event) => {
-    const {name, value} = event.target;
-    setItem({ ...item, [name]:value})
-  }
-
-  const formatPrice = (price) => {
-    return `${(price).toFixed(2)} EUR`
-  }
+const Home = ({ filterStats, setFilterStatus, addWorkshop, setAddWorkshop}) => {
 
   const changeFilterInit = () => {
     setFilterStatus("");
@@ -115,31 +95,7 @@ const Home = ({ addItem, filterStats, setFilterStatus}) => {
       <div className="column right">
         <h2 className="listTitle">Workshops</h2>
         <h6 className="listDisplay">Displayed {filteredShops.length}</h6>
-          <div className="dictionary"
-            onSubmit={event => {
-              event.preventDefault()
-              addItem(item)
-              setItem(initialCartState)
-            }}
-          >
-            {filteredShops.map(({id, image, catIcon, title, date, time, price}) => (
-              <Card className="term" key={id}>
-              <Link to={`/workshops/${id}`}>
-                <Card.Img variant="top" src={image}/>
-                <span><img className="cardIcon" src={catIcon} alt="icon" width={20}/></span>
-              </Link>
-                <Card.Body>
-                  <h6 className="dateText"><span><img src={calendar} alt="cal" width={15}/> {date} </span>
-                  <span><img src={clock} alt="clo" width={15}/> {time} </span></h6>
-                <Link to={`/workshops/${id}`}>
-                  <Card.Title><h4 type="text" name="title" value={item.title} className="cardTitle">{title}</h4></Card.Title>
-                </Link>
-                  <Card.Text><h3 type="text" name="price" value={item.price} className="price">{formatPrice(price)}</h3></Card.Text>
-                  <Button onClick={handleButton} variant='warning'>Add to Cart</Button>   
-                </Card.Body>
-              </Card>
-            ))}
-          </div>
+          {filteredShops.map(item => <Workshop item={item} addWorkshop={addWorkshop} setAddWorkshop={setAddWorkshop} />)}        
       </div>
     </div>
   );
