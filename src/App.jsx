@@ -115,8 +115,7 @@ const Home = ({ addItem, filterStats, setFilterStatus}) => {
       <div className="column right">
         <h2 className="listTitle">Workshops</h2>
         <h6 className="listDisplay">Displayed {filteredShops.length}</h6>
-          <div className="dictionary">
-          <form 
+          <div className="dictionary"
             onSubmit={event => {
               event.preventDefault()
               addItem(item)
@@ -140,7 +139,6 @@ const Home = ({ addItem, filterStats, setFilterStatus}) => {
                 </Card.Body>
               </Card>
             ))}
-            </form>
           </div>
       </div>
     </div>
