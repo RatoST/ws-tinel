@@ -96,7 +96,7 @@ const Home = ({ filterStats, setFilterStatus, addWorkshop, setAddWorkshop}) => {
       <div className="column right">
         <h2 className="listTitle">Workshops</h2>
         <h6 className="listDisplay">Displayed {filteredShops.length}</h6>
-          {filteredShops.map(item => <Workshop item={item} addWorkshop={addWorkshop} setAddWorkshop={setAddWorkshop} />)}        
+          {filteredShops.map(item => <Workshop item={item} key={item.id} addWorkshop={addWorkshop} setAddWorkshop={setAddWorkshop} />)}        
       </div>
     </div>
   );
@@ -174,7 +174,7 @@ const LaunchShop = () => {
                 <Link to={`/workshops/${id}`}>
                   <Card.Title><h4 className="cardTitle">{title}</h4></Card.Title>
                 </Link>
-                  <Card.Text><h3 className="price">{formatPrice(price)}</h3></Card.Text>
+                  <Card.Text><span className="price">{formatPrice(price)}</span></Card.Text>
                   <Button variant='warning'>Add to Cart</Button>   
                 </Card.Body>
               </Card>

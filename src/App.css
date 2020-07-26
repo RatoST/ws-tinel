@@ -184,6 +184,10 @@ nav {
 
 .price {
   color: #1D1D1B;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 29px;
+  line-height: 125%;
 }
 
 .term {

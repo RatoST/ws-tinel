@@ -43,7 +43,7 @@ const Workshop = ({item, addWorkshop, setAddWorkshop }) => {
           <Link to={`/workshops/${item.id}`}>
           <Card.Title><h4 type="text" name="title" className="cardTitle">{item.title}</h4></Card.Title>
           </Link>
-          <Card.Text><h3 type="text" name="price"  className="price">{formatPrice(item.price)}</h3></Card.Text>
+          <Card.Text><span type="text" name="price"  className="price">{formatPrice(item.price)}</span></Card.Text>
           <Button onClick={handleAdd} variant='warning'>Add to Cart</Button>   
         </Card.Body>
       </Card>
