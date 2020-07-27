@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Link } from 'react-router-dom';
 import Button from 'react-bootstrap/Button'
+import { Card } from 'react-bootstrap';
 import _ from 'lodash';
 import '../App.css';
 import arrow from '../images/arrow.png';
-import { Card } from 'react-bootstrap';
 import trash from '../images/trash.png'
 
 const Cart = ({ workshops, deleteWorkshop }) => {
