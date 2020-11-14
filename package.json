@@ -1,6 +1,5 @@
 {
   "name": "ws-tinel",
-  "homepage": "https://RatoST.github.io/ws-tinel",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
